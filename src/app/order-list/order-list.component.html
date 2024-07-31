@@ -1,0 +1,31 @@
+<div>
+    <h2>Product Order List</h2>
+    <table>
+      <tr *ngFor="let row of rows; let i = index">
+        <td>
+          <select [(ngModel)]="row.product" (change)="onProductChange(i)">
+            <option value="">Choose Product</option>
+            <option *ngFor="let product of products" [value]="product">{{product}}</option>
+          </select>
+        </td>
+        <td>
+          <select [(ngModel)]="row.quantity" [disabled]="!row.product">
+            <option value="">Choose Quantity</option>
+            <option *ngFor="let q of quantities" [value]="q">{{q}}</option>
+          </select>
+        </td>
+        <td>
+          <button (click)="addRow()" *ngIf="i === rows.length - 1 && row.product && row.quantity">ADD</button>
+        </td>
+      </tr>
+    </table>
+    <button (click)="showOrder()">Show Order</button>
+    <div *ngIf="order.length > 0">
+      <h3>Your Order</h3>
+      <ul>
+        <li *ngFor="let item of order">{{item.product}}: {{item.quantity}}</li>
+      </ul>
+      <button (click)="readOrder()">What is my Order?</button>
+    </div>
+  </div>
+  
